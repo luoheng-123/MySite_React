@@ -1,0 +1,10 @@
+.custom-dots {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    color: #1890ff;
+}
+  
