@@ -5,9 +5,6 @@ import './App.css'
 const { Header, Content, Footer } = Layout;
 const title = ['首页', '主要成绩', '个人简介', '交流社区', '课程特色']
 const App = () => {
-  // const {
-  //   token: { colorBgContainer },
-  // } = theme.useToken();
   const handleClick = (event) => {
     console.log('Menu item clicked:', event.key);
     // 跳转到对应的路由

@@ -1,7 +1,7 @@
 import { Carousel } from 'antd';
-import  {ReactComponent as ImgAbout1}  from "../../icons/about.svg";
-import  {ReactComponent as ImgAbout2}  from "../../icons/about2.svg";
-import  {ReactComponent as ImgAbout3}  from "../../icons/about3.svg";
+import  {ReactComponent as ImgAbout1}  from "./image/about.svg";
+import  {ReactComponent as ImgAbout2}  from "./image/about2.svg";
+import  {ReactComponent as ImgAbout3}  from "./image/about3.svg";
 const contentStyle = {
   height: '500px',
   color: '#fff',
