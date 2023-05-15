@@ -1,11 +1,15 @@
 import axios from "axios";
 import {message} from 'antd'
-export default function ajax(url,data = {},method = 'GET') {
+export default function ajax(url,headers,data = {},method = 'GET') {
     return new Promise(function(resolve,reject){
         let promise 
         if(method==='GET'){
-            promise = axios.get(url,{params:data})
+            promise = axios.get(url,{
+                params:data,
+                headers
+            })
         }else{
+            console.log('发送了请求',url,data);
             promise = axios.post(url,data)
         }
         promise.then(response =>{

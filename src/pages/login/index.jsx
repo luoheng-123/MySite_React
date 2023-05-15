@@ -2,20 +2,32 @@ import { Form, Checkbox, Button, Input } from "antd";
 import {UserOutlined,LockOutlined} from '@ant-design/icons'
 import React from "react";
 import { reqLogin } from "../../api";
+import memoryUtils from '../../utills/memoryUtil'
+import { useNavigate } from "react-router-dom";
+
+
 import logo from '../../assets/logo.png'
 import './login.less'
 
-const onFinish =  async(values) => {
-    console.log('Success:', values);
-    const { username, password } = values
-    const result = await reqLogin(username, password)
-    console.log(result);
-};
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
-function Login() {
 
+function Login() {
+    const nav = useNavigate()
+    const onFinish =  async(values) => {
+        console.log('Success:', values);
+        const { username, password } = values
+        const result = await reqLogin(username, password)
+        console.log(result);
+        if(result.status===0){
+            localStorage.setItem('token',result.token);
+            nav('/#/')
+        }else{
+            
+        }
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+    
     return (
         <div className="login">
             <header className="login-header">
