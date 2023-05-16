@@ -1,12 +1,12 @@
-import { Layout, Menu, Button, Modal } from 'antd';
+import { Layout, Menu, Button, Modal, Radio } from 'antd';
 import { useEffect, useState, } from 'react';
-import { useNavigate,Outlet } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import { getUserInfo } from '../../api'
 
 
 import './App.css'
 const { Header, Content, Footer } = Layout;
-const title = ['首页', '主要成绩', '个人简介', '交流社区', '课程特色','办公助手/休闲娱乐']
+const title = ['首页', '主要成绩', '个人简介', '交流社区', '课程特色', '办公助手/休闲娱乐']
 
 
 const App = () => {
@@ -15,21 +15,24 @@ const App = () => {
   const handleClick = (event) => {
     console.log('Menu item clicked:', event.key);
     // 跳转到对应的路由
-    switch(event.key){
-      case '0':nav('/home'); break;
-      case '1':nav('/achievement');break;
-      case '2':nav('/about');break;
-      case '3':nav('/community');break;
-      case '4':nav('/course');break;
-      case '5':nav('/tool');break;
+    switch (event.key) {
+      case '0': nav('/home'); break;
+      case '1': nav('/achievement'); break;
+      case '2': nav('/about'); break;
+      case '3': nav('/community'); break;
+      case '4': nav('/course'); break;
+      case '5': nav('/tool'); break;
     }
-    
+
   };
   const token = localStorage.getItem('token');
 
   //清除token
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const onChange = ({ target: { value } })=>{
+    console.log('radio checked', value);
+    nav('/login')
+  }
   const showLogoutModal = () => {
     setIsModalOpen(true);
   };
@@ -62,20 +65,13 @@ const App = () => {
   return (
 
     <Layout className="layout">
-      <Header style={{ textAlign: 'center', position: 'relative' }}>
-        {!userInfo.role_id ?
-          <Button type="primary" className='logo' target='/#/login' href='/#/login'>登 录</Button> :
-          <div style={{ color: '#fff', position: 'absolute', right: '60px', }}>
-            欢迎, {userInfo.username}
-            <Button onClick={showLogoutModal} style={{ marginLeft: '20px' }}>退出</Button>
-            <Modal cancelText='取消' okText='确认' title="确认退出吗？" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-            </Modal>
-          </div>
-        }
+      <Header style={{display: 'flex',
+          alignItems: 'center',}}>
+        
 
         <Menu
           onClick={handleClick}
-          style={{ textAlign: 'center' }}
+          style={{ float:'left',flex:'1' }}
           theme="dark"
           mode="horizontal"
           // defaultSelectedKeys={['3']}
@@ -88,6 +84,23 @@ const App = () => {
           })}
         >
         </Menu>
+        {!userInfo.role_id ? (
+            <>
+            {/* <Button type="primary" className='logo' target='/#/login' href='/#/login'>登 录</Button> */}
+            <Radio.Group style={{float:'right'}} onChange={onChange}>
+              <Radio.Button value="login">登录</Radio.Button>
+              <Radio.Button value="register">注册</Radio.Button>
+            </Radio.Group>
+            </>
+            )
+          :
+          <div style={{ color: '#fff', position: 'absolute', right: '60px', }}>
+            欢迎, {userInfo.username}
+            <Button onClick={showLogoutModal} style={{ marginLeft: '20px' }}>退出</Button>
+            <Modal cancelText='取消' okText='确认' title="确认退出吗？" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            </Modal>
+          </div>
+        }
       </Header>
       <Content
         style={{
@@ -103,7 +116,7 @@ const App = () => {
       >
         <span>培训地址：新田县飞马路一巷17号</span> <span>联系电话：17607495289（微信与电话同号）</span>
       </Footer>
-    </Layout>
+    </Layout >
   );
 };
 export default App;
