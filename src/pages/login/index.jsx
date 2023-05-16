@@ -2,7 +2,6 @@ import { Form, Checkbox, Button, Input } from "antd";
 import {UserOutlined,LockOutlined} from '@ant-design/icons'
 import React from "react";
 import { reqLogin } from "../../api";
-import memoryUtils from '../../utills/memoryUtil'
 import { useNavigate } from "react-router-dom";
 
 

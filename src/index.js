@@ -20,11 +20,13 @@ const router = createHashRouter([
     path: "/",
     element: <App />,
     loader: Loading,
+    
     children: [
       {
         path: "home",
         element: <Home />,
         loader: Loading,
+        
       },
       {
         path: "achievement",
@@ -43,7 +45,7 @@ const router = createHashRouter([
       },
       {
         path: "course",
-        element: <Course />,
+        element: <Course /> ,
         loader: Loading,
       },
       {
@@ -57,13 +59,6 @@ const router = createHashRouter([
     path: "/login",
     element: <Login />,
     loader: Loading,
-    // children: [
-    //   {
-    //     path: "team",
-    //     element: <Team />,
-    //     loader: teamLoader,
-    //   },
-    // ],
   },
 ]);
 

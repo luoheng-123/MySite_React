@@ -1,7 +1,6 @@
 import { Layout, Menu, Button, Modal } from 'antd';
 import { useEffect, useState, } from 'react';
-import { Routes, Route,useNavigate,Outlet } from "react-router-dom";
-import About from '../../components/About'
+import { useNavigate,Outlet } from "react-router-dom";
 import { getUserInfo } from '../../api'
 
 
@@ -49,7 +48,6 @@ const App = () => {
         'Authorization': token
       }
       const result = await getUserInfo(headers)
-      // console.log(result);
       if (result.status === 0) {
         setUserInfo({ ...result.data })
 
@@ -58,6 +56,7 @@ const App = () => {
     if (token) {
       handleUserInfo(token)
     }
+    nav('/course')
   }, [])
   console.log('app页面');
   return (
@@ -79,7 +78,7 @@ const App = () => {
           style={{ textAlign: 'center' }}
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={['2']}
+          // defaultSelectedKeys={['3']}
           items={new Array(6).fill(null).map((_, index) => {
             const key = index;
             return {
@@ -95,10 +94,6 @@ const App = () => {
           padding: '0 50px',
         }}
       >
-        {/* 使用react路由，根据路由显示相应的组件 */}
-        {/* <Routes>
-          <Route path="/" element={<About />} />
-        </Routes> */}
         <Outlet></Outlet>
       </Content>
       <Footer
