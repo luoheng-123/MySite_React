@@ -1,21 +1,30 @@
 import { Layout, Menu, Button, Modal } from 'antd';
-import { useEffect, useState } from 'react';
-import { Routes, Route } from "react-router-dom";
+import { useEffect, useState, } from 'react';
+import { Routes, Route,useNavigate,Outlet } from "react-router-dom";
 import About from '../../components/About'
 import { getUserInfo } from '../../api'
 
 
 import './App.css'
 const { Header, Content, Footer } = Layout;
-const title = ['首页', '主要成绩', '个人简介', '交流社区', '课程特色']
+const title = ['首页', '主要成绩', '个人简介', '交流社区', '课程特色','办公助手/休闲娱乐']
 
 
 const App = () => {
   const [userInfo, setUserInfo] = useState({})
-
+  const nav = useNavigate(null)
   const handleClick = (event) => {
     console.log('Menu item clicked:', event.key);
     // 跳转到对应的路由
+    switch(event.key){
+      case '0':nav('/home'); break;
+      case '1':nav('/achievement');break;
+      case '2':nav('/about');break;
+      case '3':nav('/community');break;
+      case '4':nav('/course');break;
+      case '5':nav('/tool');break;
+    }
+    
   };
   const token = localStorage.getItem('token');
 
@@ -71,7 +80,7 @@ const App = () => {
           theme="dark"
           mode="horizontal"
           defaultSelectedKeys={['2']}
-          items={new Array(5).fill(null).map((_, index) => {
+          items={new Array(6).fill(null).map((_, index) => {
             const key = index;
             return {
               key,
@@ -87,9 +96,10 @@ const App = () => {
         }}
       >
         {/* 使用react路由，根据路由显示相应的组件 */}
-        <Routes>
+        {/* <Routes>
           <Route path="/" element={<About />} />
-        </Routes>
+        </Routes> */}
+        <Outlet></Outlet>
       </Content>
       <Footer
         style={{

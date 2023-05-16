@@ -19,7 +19,7 @@ function Login() {
         console.log(result);
         if(result.status===0){
             localStorage.setItem('token',result.token);
-            nav('/#/')
+            nav('/')
         }else{
             
         }
