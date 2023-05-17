@@ -31,7 +31,12 @@ const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onChange = ({ target: { value } })=>{
     console.log('radio checked', value);
-    nav('/login')
+    if(value === 'login'){
+      nav('/login')
+    }
+    if(value === 'register'){
+      nav('/register')
+    }
   }
   const showLogoutModal = () => {
     setIsModalOpen(true);
@@ -74,7 +79,7 @@ const App = () => {
           style={{ float:'left',flex:'1' }}
           theme="dark"
           mode="horizontal"
-          // defaultSelectedKeys={['3']}
+          defaultSelectedKeys={['4']}
           items={new Array(6).fill(null).map((_, index) => {
             const key = index;
             return {

@@ -5,6 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+
 import App from "./pages/app";
 import Login from "./pages/login";
 import Loading from "./components/Loading";
@@ -14,7 +15,8 @@ import Tool from './components/Tool'
 import Course from './components/Course'
 import About from "./components/About";
 import Community from './components/Community'
-
+import Register from './components/Register'
+import './index.css'
 const router = createHashRouter([
   {
     path: "/",
@@ -53,6 +55,7 @@ const router = createHashRouter([
         element: <Tool />,
         loader: Loading,
       },
+      
     ],
   },
   {
@@ -60,8 +63,14 @@ const router = createHashRouter([
     element: <Login />,
     loader: Loading,
   },
+  {
+        path: "register",
+        element: <Register />,
+        loader: Loading,
+      },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
+
   <RouterProvider router={router} />
 );
