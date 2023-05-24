@@ -21,12 +21,12 @@ function Tool() {
                         免费电影
                     </Button>
                 </a>
-                <a href="https://cokemv.me/" target='_blank' className='item'>
+                {/* <a href="https://cokemv.me/" target='_blank' className='item'>
 
                     <Button type="primary" icon={<RightSquareOutlined />} size='large'>
                         COKEMV影视
                     </Button>
-                </a>
+                </a> */}
                 <a href="https://www.dadagui.me/" target='_blank' className='item'>
 
                     <Button type="primary" icon={<RightSquareOutlined />} size='large'>

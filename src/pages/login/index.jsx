@@ -1,6 +1,6 @@
 import { Form, Checkbox, Button, Input } from "antd";
 import {UserOutlined,LockOutlined} from '@ant-design/icons'
-import React from "react";
+import React, { useState } from "react";
 import { reqLogin } from "../../api";
 import { useNavigate } from "react-router-dom";
 
@@ -11,11 +11,13 @@ import './login.less'
 
 function Login() {
     const nav = useNavigate()
+    const [val,setVal] = useState({})
     const onFinish =  async(values) => {
         console.log('Success:', values);
         const { username, password } = values
         const result = await reqLogin(username, password)
         console.log(result);
+        setVal(result)
         if(result.status===0){
             localStorage.setItem('token',result.token);
             nav('/')
@@ -100,6 +102,7 @@ function Login() {
                         <Checkbox>记住账号</Checkbox>
                     </Form.Item>
 
+                    {val.status?<div style={{color:'red',marginBottom:'10px'}}>{val.message}</div>:''}
                     <Form.Item
                         wrapperCol={{
                             offset: 4,

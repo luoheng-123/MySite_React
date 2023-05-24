@@ -1,9 +1,9 @@
 .about_me{
     margin: 20px;
-    font-size: 30px;
+    font-size: 40px;
     text-align: center;
     letter-spacing: 10px;
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
 }
 .about_content{
     text-align: center;
@@ -14,4 +14,10 @@
     width: 800px;
     height: 600px;
     margin: 0 auto;
+}
+.ant-image-preview-img-wrapper::before{
+    height: 0;
+}
+.ant-image-preview-img-wrapper::before{
+    height: 0;
 }

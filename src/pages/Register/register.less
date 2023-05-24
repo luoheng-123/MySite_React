@@ -1,0 +1,55 @@
+.register {
+    width: 100%;
+    // height: 900px;
+    background-image: url('../images/duck-thug-life-2y.jpg');
+    background-size: 100% 100%;
+    .register-header {
+      display: flex;
+      // 垂直居中
+      align-items: center;
+      // 水平居中
+      justify-content: center;
+      width: 100%;
+      height: 60px;
+      font-size: 36px;
+      color: #fff;
+    }
+  
+    .register-content {
+      position: relative;
+      width: 500px;
+      height: 700px;
+      background-color: rgba(63, 63, 62, 0.7);
+      margin: 20px auto;
+      padding: 20px 40px;
+      .error-msg {
+        visibility: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-align: center;
+        height: 30px;
+        width: 100%;
+        background: #f60c1a;
+        color: #ffffff;
+        font-size: 16px;
+        transform: translateY(-30px);
+        transition: all .3s;
+        &.show {
+          visibility: visible;
+          transform: translateY(0);
+        }
+      }
+      h2 {
+        text-align: center;
+        font-size: 30px;
+        font-weight:bold;
+        margin-bottom: 20px;
+      }
+      .register-form {
+        .register-form-button {
+          width: 100%;
+        }
+      }
+    }
+  }

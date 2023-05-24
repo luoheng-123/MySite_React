@@ -1,17 +1,24 @@
-import { Layout, Menu, Button, Modal, Radio } from 'antd';
+import { Layout, Menu, Button, Modal } from 'antd';
 import { useEffect, useState, } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Outlet } from "react-router-dom";
 import { getUserInfo } from '../../api'
 
 
 import './App.css'
 const { Header, Content, Footer } = Layout;
-const title = ['首页', '主要成绩', '个人简介', '交流社区', '课程特色', '办公助手/休闲娱乐']
+const title = ['首页', '主要成绩', '个人简介', '交流社区', '课程特色', '办公助手/休闲娱乐', '个人中心']
+const title1 = ['登录', '注册']
 
 
 const App = () => {
-  const [userInfo, setUserInfo] = useState({})
+  const dispatch = useDispatch()
+  const { userInfo } = useSelector((state) => ({
+    userInfo: state.userReducer
+  }))
+  // const [userInfo, setUserInfo] = useState({})
   const nav = useNavigate(null)
+  
   const handleClick = (event) => {
     console.log('Menu item clicked:', event.key);
     // 跳转到对应的路由
@@ -22,6 +29,7 @@ const App = () => {
       case '3': nav('/community'); break;
       case '4': nav('/course'); break;
       case '5': nav('/tool'); break;
+      case '6': nav('/personal'); break;
     }
 
   };
@@ -29,13 +37,10 @@ const App = () => {
 
   //清除token
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const onChange = ({ target: { value } })=>{
-    console.log('radio checked', value);
-    if(value === 'login'){
-      nav('/login')
-    }
-    if(value === 'register'){
-      nav('/register')
+  const onChange = (event) => {
+    switch (event.key) {
+      case '0': nav('/login'); break;
+      case '1': nav('/register'); break;
     }
   }
   const showLogoutModal = () => {
@@ -44,43 +49,43 @@ const App = () => {
 
   const handleOk = () => {
     localStorage.removeItem('token')
-    setUserInfo({})
+    nav('/home')
     setIsModalOpen(false);
   };
+  console.log('app刷新了', userInfo);
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   useEffect(() => {
     async function handleUserInfo(token) {
       const headers = {
         'Authorization': token
       }
       const result = await getUserInfo(headers)
+      console.log(result);
       if (result.status === 0) {
-        setUserInfo({ ...result.data })
-
+        // setUserInfo({ ...result.data })
+        dispatch({ type: 'setUserInfo', val: result.data })
       }
     }
     if (token) {
       handleUserInfo(token)
     }
-    nav('/course')
+    console.log('useeffect');
+    nav('/achievement')
   }, [])
-  console.log('app页面');
+
   return (
-
     <Layout className="layout">
-      <Header style={{display: 'flex',
-          alignItems: 'center',}}>
-        
-
+      <Header style={{ display: 'flex', alignItems: 'center' }}>
         <Menu
           onClick={handleClick}
-          style={{ float:'left',flex:'1' }}
+          style={{ width: '80%', textAlign: 'center' }}
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={['4']}
-          items={new Array(6).fill(null).map((_, index) => {
+          defaultSelectedKeys={['1']}
+          items={new Array(7).fill(null).map((_, index) => {
             const key = index;
             return {
               key,
@@ -89,18 +94,26 @@ const App = () => {
           })}
         >
         </Menu>
-        {!userInfo.role_id ? (
-            <>
-            {/* <Button type="primary" className='logo' target='/#/login' href='/#/login'>登 录</Button> */}
-            <Radio.Group style={{float:'right'}} onChange={onChange}>
-              <Radio.Button value="login">登录</Radio.Button>
-              <Radio.Button value="register">注册</Radio.Button>
-            </Radio.Group>
-            </>
-            )
+
+        {!token ? (
+          <Menu
+            onClick={onChange}
+            style={{ width: '20%', justifyContent: 'end' }}
+            theme="dark"
+            mode="horizontal"
+            items={new Array(2).fill(null).map((_, index) => {
+              const key = index;
+              return {
+                key,
+                label: `${title1[key]}`,
+              };
+            })}
+          >
+          </Menu>
+        )
           :
           <div style={{ color: '#fff', position: 'absolute', right: '60px', }}>
-            欢迎, {userInfo.username}
+            <img src={userInfo.avatar_img} style={{ width: '40px', height: '40px', float: 'left', borderRadius: '50%', margin: '12px 10px 0 0' }} />欢迎, {userInfo.username}
             <Button onClick={showLogoutModal} style={{ marginLeft: '20px' }}>退出</Button>
             <Modal cancelText='取消' okText='确认' title="确认退出吗？" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
             </Modal>

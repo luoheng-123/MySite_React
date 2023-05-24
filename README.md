@@ -68,3 +68,18 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+### 在register的用户注册中可以尝试把用户头像存储的地址发送给数据库，在用户登录时先获取用户基本信息然后再发送请求获取用户的头像
+
+
+
+
+
+<>
+              <Radio.Group onChange={onChange} style={{ float: 'right',zIndex:'9999' }}>
+                <Radio.Button value="login">登录</Radio.Button>
+                <Radio.Button value="register">注册</Radio.Button>
+              </Radio.Group>
+            </>

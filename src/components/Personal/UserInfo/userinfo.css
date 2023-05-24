@@ -1,0 +1,27 @@
+.ant-card-head-title {
+    width: 90%;
+    float: left;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bolder;
+}
+.personal-content{
+    font-size: 16px;
+    font-weight: normal;
+}
+.personal-logo {
+    
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    /* border: 1px red solid;
+   background-color: aqua; */
+    margin: 0 auto;
+}
+
+
+.personal-logo img {
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+}

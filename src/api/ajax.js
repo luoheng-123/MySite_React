@@ -9,8 +9,8 @@ export default function ajax(url,headers,data = {},method = 'GET') {
                 headers
             })
         }else{
-            console.log('发送了请求',url,data);
-            promise = axios.post(url,data)
+            console.log('发送了请求',url,data,headers);
+            promise = axios.post(url,data,{headers})
         }
         promise.then(response =>{
             resolve(response.data)

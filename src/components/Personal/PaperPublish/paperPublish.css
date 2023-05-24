@@ -1,0 +1,20 @@
+.paperPublish-content{
+    width: 90%;
+    /* height: 600px; */
+    float: left;
+    
+}
+.paperPublish-quill{
+    width: 80%;
+    margin: 40px auto;
+    height: 300px;
+}
+.paperPublish-formBtn{
+    margin-top: 40px;
+}
+.ant-upload-picture-card-wrapper{
+    margin: 20px;
+}
+.tox{
+    margin: 0 auto;
+}
