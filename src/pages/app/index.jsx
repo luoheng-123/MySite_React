@@ -1,35 +1,38 @@
-import { Layout, Menu, Button, Modal } from 'antd';
+import { Layout, Menu, Button, Modal,message } from 'antd';
 import { useEffect, useState, } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, Outlet } from "react-router-dom";
-import { getUserInfo } from '../../api'
-
-
+import { useNavigate, Outlet, useLocation } from "react-router-dom";
+import PubSub from 'pubsub-js';
+import { getUserInfo,getOnePageArticles,getVideo} from '../../api'
+import { topLeftMenuList, topRightMenuList } from '../../config/topMenuConfig';
 import './App.css'
 const { Header, Content, Footer } = Layout;
-const title = ['首页', '主要成绩', '个人简介', '交流社区', '课程特色', '办公助手/休闲娱乐', '个人中心']
-const title1 = ['登录', '注册']
-
 
 const App = () => {
+  const url = useLocation()
+  // console.log(url);
+  const path = '/' + url.pathname.split('/')[1]
+  // console.log(path);
+
   const dispatch = useDispatch()
   const { userInfo } = useSelector((state) => ({
     userInfo: state.userReducer
   }))
-  // const [userInfo, setUserInfo] = useState({})
   const nav = useNavigate(null)
-  
+
   const handleClick = (event) => {
-    console.log('Menu item clicked:', event.key);
     // 跳转到对应的路由
     switch (event.key) {
-      case '0': nav('/home'); break;
-      case '1': nav('/achievement'); break;
-      case '2': nav('/about'); break;
-      case '3': nav('/community'); break;
-      case '4': nav('/course'); break;
-      case '5': nav('/tool'); break;
-      case '6': nav('/personal'); break;
+      case '/home': nav('/home'); break;
+      case '/achievement': nav('/achievement'); break;
+      case '/about': nav('/about'); break;
+      case '/community': nav('/community'); break;
+      case '/course': nav('/course'); break;
+      case '/tool': nav('/tool'); break;
+      case '/personal': nav('/personal'); break;
+      case '/commercial': nav('/commercial'); break;
+      case '/administrator': nav('/administrator'); break;
+      default: nav('/home')
     }
 
   };
@@ -39,8 +42,8 @@ const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onChange = (event) => {
     switch (event.key) {
-      case '0': nav('/login'); break;
-      case '1': nav('/register'); break;
+      case '/login': nav('/login'); break;
+      case '/register': nav('/register'); break;
     }
   }
   const showLogoutModal = () => {
@@ -52,30 +55,64 @@ const App = () => {
     nav('/home')
     setIsModalOpen(false);
   };
-  console.log('app刷新了', userInfo);
+  // console.log('app刷新了', userInfo);
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    async function handleUserInfo(token) {
-      const headers = {
-        'Authorization': token
-      }
-      const result = await getUserInfo(headers)
-      console.log(result);
-      if (result.status === 0) {
-        // setUserInfo({ ...result.data })
-        dispatch({ type: 'setUserInfo', val: result.data })
-      }
+  const handleUserInfo = async (token) => {
+    const headers = {
+      'Authorization': token
     }
+    const result = await getUserInfo(headers)
+    console.log(result);
+    if (result.status === 0) {
+      // setUserInfo({ ...result.data })
+      dispatch({ type: 'setUserInfo', val: result.data })
+    }
+  }
+  // const handlerOnePageArticles = async (pageSize) => {
+  //   const res = await getOnePageArticles(pageSize);
+  //   console.log(res);
+  //   if (res.status === 0) {
+  //     // message.success('数据获取成功')
+  //     // console.log(res);
+  //     dispatch({ type: 'setOnePageUserArticles', val: { data: res.data, articleTotal: res.articleTotal } })
+  //     PubSub.publish('article-data',{ data: res.data, articleTotal: res.articleTotal })
+  //   } else {
+  //     message.error(res.message)
+  //   }
+  // }
+  // const handlerGetVideo = async (pageNum, pageSize) => {
+  //   const info = {
+  //     pageNum,
+  //     pageSize,
+  //   }
+  //   const res = await getVideo(info);
+  //   console.log(res);
+  //   if (res.status === 0) {
+  //     message.success('数据获取成功')
+  //     console.log(res);
+  //     dispatch({ type: 'setVideoData', val: { data: res.data, videoTotal: res.videoTotal } })
+  //     PubSub.publish('video-data',{ data: res.data, videoTotal: res.videoTotal })
+  //   } else {
+  //     message.error(res.message)
+  //   }
+  //   // console.log(res);
+  // }
+  useEffect(() => {
+    // handlerOnePageArticles({pageSize: 4})
+    // handlerGetVideo(1, 8)
     if (token) {
+      console.log(token);
       handleUserInfo(token)
     }
-    console.log('useeffect');
-    nav('/achievement')
+    // console.log('useeffect');
+    if (url.pathname === '/') {
+      nav('/home')
+    }
   }, [])
-
+  // 根据请求路径，高亮导航对应的模块
   return (
     <Layout className="layout">
       <Header style={{ display: 'flex', alignItems: 'center' }}>
@@ -84,12 +121,11 @@ const App = () => {
           style={{ width: '80%', textAlign: 'center' }}
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={['1']}
-          items={new Array(7).fill(null).map((_, index) => {
-            const key = index;
+          selectedKeys={[path]}
+          items={topLeftMenuList.map((item) => {
             return {
-              key,
-              label: `${title[key]}`,
+              key: item.key,
+              label: item.title,
             };
           })}
         >
@@ -101,11 +137,10 @@ const App = () => {
             style={{ width: '20%', justifyContent: 'end' }}
             theme="dark"
             mode="horizontal"
-            items={new Array(2).fill(null).map((_, index) => {
-              const key = index;
+            items={topRightMenuList.map((item) => {
               return {
-                key,
-                label: `${title1[key]}`,
+                key: item.key,
+                label: item.title,
               };
             })}
           >
@@ -125,7 +160,7 @@ const App = () => {
           padding: '0 50px',
         }}
       >
-        <Outlet></Outlet>
+        <Outlet ></Outlet>
       </Content>
       <Footer
         style={{

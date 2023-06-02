@@ -13,9 +13,13 @@ function UserInfo() {
     const { userInfo } = useSelector((state) => ({
         userInfo: state.userReducer
     }))
+
+    const { total } = useSelector((state) => ({
+        total: state.userArticleReducer.articleTotal
+    }))
     useEffect(() => {
         console.log(userInfo.role_id);
-        if (!(token&&userInfo.role_id)) {
+        if (!(token && userInfo.role_id)) {
             setOpen(true)
             console.log('nav');
             // 弹出对话框，跳转到course页面
@@ -46,10 +50,14 @@ function UserInfo() {
             >
                 <div className='personal-content'>
                     <div className='personal-logo'><img src={userInfo.avatar_img} alt="" /></div>
-                    <p>用户名:{userInfo.username}</p>
-                    <p>性别:{userInfo.gender === 'male' ? '男' : '女'}</p>
-                    <p>邮箱:{userInfo.email}</p>
-                    <p>电话:{userInfo.phone}</p>
+                    <div className='personal-info'>
+
+                        <p>用&nbsp;户名:&nbsp;&nbsp;&nbsp;&nbsp;{userInfo.username}</p>
+                        <p>性&nbsp;&nbsp;&nbsp;别:&nbsp;&nbsp;&nbsp;&nbsp;{userInfo.gender === 'male' ? '男' : '女'}</p>
+                        <p>邮&nbsp;&nbsp;&nbsp;箱:&nbsp;&nbsp;&nbsp;&nbsp;{userInfo.email}</p>
+                        <p>电&nbsp;&nbsp;&nbsp;话:&nbsp;&nbsp;&nbsp;&nbsp;{userInfo.phone}</p>
+                        <p>已发表的文章数:&nbsp;&nbsp;&nbsp;&nbsp;{total}篇</p>
+                    </div>
                 </div>
             </Card>
         </>

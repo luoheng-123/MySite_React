@@ -1,0 +1,178 @@
+.home-content-top {
+    width: 70%;
+    margin: 20px auto;
+    background-color: azure;
+}
+
+.home-content-top-carousel {
+    width: 100%;
+    height: 500px;
+    color: #fff;
+    text-align: center;
+    background: #aebbdd;
+}
+
+.home-content-top-carousel div {
+    position: relative;
+}
+
+.home-content-top-carousel div img {
+    height: 500px;
+    margin: 0 auto;
+    /* width: 100%; */
+}
+
+.home-content-top-carousel div h3 {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: azure;
+}
+
+.home-content-articles {
+    width: 90%;
+    background-color: #f9f9f9;
+    padding: 13px;
+    height: 300px;
+    margin: 20px auto;
+}
+
+.ant-list-item-meta-description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ant-list-header {
+    font-size: 20px;
+}
+
+.ant-list-item {
+    padding: 0
+}
+
+.ant-list-item-meta-title {
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.article-more {
+    float: right;
+}
+
+.link {
+    width: 90%;
+    height: 159px;
+    background-color: #fff;
+    margin: 20px auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.link-left {
+    width: 48%;
+    float: left;
+    cursor: grab
+}
+
+.link-left li {
+    float: left;
+    width: 23%;
+    margin: 0 1%;
+    height: 139px;
+    background: linear-gradient(to bottom, #b5d6ee, #1f6699);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.link-left li:hover {
+    background: #eec635;
+    transition: all .4s ease;
+}
+
+.link-right {
+    width: 48%;
+    float: right;
+    cursor: grab
+}
+
+.link-right li {
+    float: left;
+    width: 23%;
+    margin: 0 1%;
+    height: 139px;
+    background: linear-gradient(to bottom, #b5d6ee, #1f6699);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.link-right li:hover {
+    background: #eec635;
+    transition: all .4s ease;
+}
+
+.icon {
+    width: 50px;
+}
+
+.link p {
+    margin: 10px 0;
+    color: #f9f9f9;
+}
+
+.policy {
+    width: 80%;
+    height: 159px;
+    background-color: #fff;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.policy p {
+    font-size: large;
+
+}
+
+.home-video-title {
+    font-size: 24px;
+    padding-top: 16px;
+}
+
+.home-content-video {
+    text-align: center;
+    height: 570px;
+    width: 90%;
+    background-color: #f9f9f9;
+    margin: 20px auto;
+}
+.home-video-alert{
+    margin: 180px auto ;
+    font-size: 40px;
+    color: #f4d257;
+}
+.home-content-video video {
+    margin-top: 10px;
+    padding: 0 5px;
+    text-align: center;
+}
+
+.gutter-row {
+    position: relative;
+}
+
+.video-time {
+    color: #ccc;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}

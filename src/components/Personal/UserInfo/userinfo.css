@@ -1,5 +1,5 @@
 .ant-card-head-title {
-    width: 90%;
+    width: 86%;
     float: left;
     text-align: center;
     font-size: 24px;
@@ -9,8 +9,12 @@
     font-size: 16px;
     font-weight: normal;
 }
+.personal-content p{
+    padding-top: 10px;
+    color: black;
+    /* letter-spacing: 1px; */
+}
 .personal-logo {
-    
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -24,4 +28,10 @@
     border-radius: 50%;
     height: 100%;
     width: 100%;
+}
+
+.personal-info{
+    width: 200px;
+    margin: 0 auto;
+    text-align: left;
 }

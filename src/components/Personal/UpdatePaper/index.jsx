@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { Form, Input, Button, Select, message } from 'antd'
 
@@ -8,10 +8,11 @@ import { Form, Input, Button, Select, message } from 'antd'
 import 'react-quill/dist/quill.snow.css';
 
 
-import './paperPublish.css'
+import './updatePaper.css'
 import { useSelector } from 'react-redux';
-import { addAticle, uploadImg,updateAticle } from '../../../api';
-import { useNavigate,useParams } from 'react-router-dom';
+import { uploadImg, updateAticle } from '../../../api';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 const { Option } = Select;
@@ -53,7 +54,10 @@ const tailFormItemLayout = {
         },
     },
 };
-function PaperPublish() {
+function UpdatePaper() {
+    const { article_id } = useParams()
+    const editorRef = useRef(null)
+    // console.log(article_id);
     const nav = useNavigate(null)
     const { userInfo } = useSelector((state) => ({
         userInfo: state.userReducer
@@ -68,7 +72,7 @@ function PaperPublish() {
     };
 
     const handleImageUpload = async (blobInfo, success, failure) => {
-        console.log(blobInfo, success);
+        // console.log(blobInfo, success);
         const formData = new FormData();
         formData.append('img', blobInfo.blob(), blobInfo.filename());
         const headers = {
@@ -80,7 +84,7 @@ function PaperPublish() {
         // 在失败回调中，调用failure方法
         // 请根据您的项目和后端实现来处理图片上传
         const res = await uploadImg(headers, formData)
-        console.log(res.location);
+        // console.log(res.location);
         if (res.status === 0) {
             success(res.location)
         } else {
@@ -94,33 +98,35 @@ function PaperPublish() {
             'Authorization': token,
         }
 
-        // console.log(editorContent);
+        console.log(editorContent);
         const data = {
-            role_id: userInfo.role_id,
-            username: userInfo.username,
+            article_id: articleInfo.article_id,
             article_title: values.title,
             article_category: values.category,
             article_content: editorContent
         }
-        const res = await addAticle(headers, data);
+        const res = await updateAticle(headers, data);
         console.log(res);
-        if(res.status===0){
+        if (res.status === 0) {
             // 发表成功，跳转
-            message.success('发表成功！！！')
+            message.success(res.message)
             setTimeout(() => {
                 nav('/personal/papermanagement')
             }, 800);
-        }else{
+        } else {
             // 发表失败，保持不变
             message.error(res.message)
         }
     }
-
+   
     const [form] = Form.useForm();
-
+    const articleInfo = useSelector((state) => {
+        return state.userArticleReducer.data.find((item) => {
+            return item.article_id === parseInt(article_id)
+        })
+    })
     return (
         <>
-            {/* 我是paperPublish */}
             <div className='paperPublish-content'>
 
                 <Form
@@ -144,7 +150,7 @@ function PaperPublish() {
                                 message: '请选择所属类别！！',
                             },
                         ]}
-                        initialValue='diary'
+                        initialValue={articleInfo.article_category}
                     >
                         <Select placeholder="请选择所属类别" >
                             <Option value="diary">学习日记</Option>
@@ -154,6 +160,7 @@ function PaperPublish() {
                     <Form.Item
                         name="title"
                         label="文章标题："
+                        initialValue={articleInfo.article_title}
                         rules={[
                             {
                                 required: true,
@@ -166,13 +173,15 @@ function PaperPublish() {
                     </Form.Item>
 
                     <Editor
+                        ref={editorRef}
                         style={{ marginLeft: '30px' }}
+                        initialValue = {articleInfo.article_content}
                         apiKey="iy9ay7mlubq80bcyld0oh0q4qvmt34ebio5tw94y57798dvh"
                         init={{
                             selector: '#tinydemo',
                             language: 'zh_CN',
-                            convert_urls: false,
-                            height: 500,
+                            convert_urls: true,
+                            height: 800,
                             width: '90%',
                             plugins: 'image',
                             toolbar: 'image',
@@ -184,7 +193,7 @@ function PaperPublish() {
 
                     <Form.Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit" className='paperPublish-formBtn'>
-                            发表
+                            更新
                         </Button>
                     </Form.Item>
                 </Form>
@@ -192,4 +201,4 @@ function PaperPublish() {
         </>
     )
 }
-export default PaperPublish
+export default UpdatePaper

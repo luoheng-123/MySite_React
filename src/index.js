@@ -13,6 +13,7 @@ import Loading from "./components/Loading"
 const App = React.lazy(() => import("./pages/app"))
 const Login = React.lazy(() => import("./pages/login"))
 const Register = React.lazy(() => import('./pages/Register'))
+const Article = React.lazy(() => import('./pages/article'))
 
 const Achievement = React.lazy(() => import("./components/Achievement"))
 const Home = React.lazy(() => import('./components/Home'))
@@ -22,11 +23,17 @@ const About = React.lazy(() => import("./components/About"))
 const Personal = React.lazy(() => import('./components/Personal'))
 const Community = React.lazy(() => import('./components/Community'))
 const UserInfo = React.lazy(() => import('./components/Personal/UserInfo'))
+const Commercial = React.lazy(() => import('./components/Commercial'))
+const Administrator = React.lazy(() => import('./components/Administrator'))
 
    
    
+const AllPaperManagement = React.lazy(() => import('./components/Administrator/AllPaperManagement'))
+const UserManagement = React.lazy(() => import('./components/Administrator/UserManagement'))
+const VideoManagement = React.lazy(() => import('./components/Administrator/VideoManagement'))
 const PaperManagement = React.lazy(() => import('./components/Personal/PaperManagement'))
 const PaperPublish = React.lazy(() => import('./components/Personal/PaperPublish'))
+const UpdatePaper = React.lazy(() => import('./components/Personal/UpdatePaper'))
 const UpdateUser = React.lazy(() => import('./components/Personal/UpdateUser'))
 
 
@@ -97,9 +104,15 @@ const router = createHashRouter([
             </React.Suspense>,
           },
           {
-            path: 'paperpublish',
+            path: 'paperpublish/',
             element: <React.Suspense fallback={<Loading />}  >
               <PaperPublish />
+            </React.Suspense>,
+          },
+          {
+            path: 'updatePaper/:article_id',
+            element: <React.Suspense fallback={<Loading />}  >
+              <UpdatePaper />
             </React.Suspense>,
           },
           {
@@ -110,7 +123,38 @@ const router = createHashRouter([
           },
         ]
       },
-
+      {
+        path: "commercial",
+        element: <React.Suspense fallback={<Loading />}  >
+          <Commercial />
+        </React.Suspense>
+      },
+      {
+        path: "administrator",
+        element: <React.Suspense fallback={<Loading />}  >
+          <Administrator />
+        </React.Suspense>,
+        children:[
+          {
+            path: "videomanagement",
+            element: <React.Suspense fallback={<Loading />}  >
+              <VideoManagement />
+            </React.Suspense>
+          },
+          {
+            path: "usermanagement",
+            element: <React.Suspense fallback={<Loading />}  >
+              <UserManagement />
+            </React.Suspense>
+          },
+          {
+            path: "allpapermanagement",
+            element: <React.Suspense fallback={<Loading />}  >
+              <AllPaperManagement />
+            </React.Suspense>
+          },
+        ]
+      },
     ],
   },
   {
@@ -123,6 +167,12 @@ const router = createHashRouter([
     path: "register",
     element: <React.Suspense fallback={<Loading />}  >
       <Register />
+    </React.Suspense>
+  },
+  {
+    path: "article/:article_id",
+    element: <React.Suspense fallback={<Loading />}  >
+      <Article />
     </React.Suspense>
   },
 ]);

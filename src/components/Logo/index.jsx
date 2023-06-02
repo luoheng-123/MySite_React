@@ -30,10 +30,10 @@ const Logo = ({ imgUrl }) => {
     }
     if (info.file.status === 'done') {
       console.log(info.file);
-      setImageUrl('/upload/' + info.file.response.name)
-      // setImageUrl('/public/upload/'+info.file.response.name)
-      PubSub.publish('logoUrl', '/upload/' + info.file.response.name);
-      // PubSub.publish('logoUrl', '/public/upload/'+info.file.response.name);
+      // setImageUrl('/upload/' + info.file.response.name)
+      setImageUrl('/public/upload/'+info.file.response.name)
+      // PubSub.publish('logoUrl', '/upload/' + info.file.response.name);
+      PubSub.publish('logoUrl', '/public/upload/'+info.file.response.name);
     }
   };
   const uploadButton = (
@@ -62,8 +62,8 @@ const Logo = ({ imgUrl }) => {
       listType="picture-card"
       className="avatar-uploader ant-upload"
       showUploadList={false}
-      // action="https://luoedu.club/api/uploadAvatar"
-      action="/api/uploadAvatar"
+      action="https://luoedu.club/api/uploadAvatar"
+      // action="/api/uploadAvatar"
       beforeUpload={beforeUpload}
       onChange={handleChange}
     >

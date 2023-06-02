@@ -1,11 +1,13 @@
 import { applyMiddleware, legacy_createStore,compose, combineReducers } from "redux";
 import reduxThunk from 'redux-thunk'
-// import countReducer from './countReducer'
+import userArticleReducer from './userArticleStatus/reducer'
 import userReducer from './userStatus/reducer'
+import videoReducer from './videoStatus/reducer'
 
 const reducers = combineReducers({
     userReducer,
-    // countReducer
+    userArticleReducer,
+    videoReducer,
 })
 
 let composeEnhancers = window.__REDUX_DEVTOOL_EXTENSION__COMPOSE__?window.__REDUX_DEVTOOL_EXTENSION__COMPOSE__({}):compose

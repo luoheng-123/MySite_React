@@ -2,6 +2,7 @@ import { Col, Divider, Row,Image } from 'antd';
 
 import ssImageSrc1 from './assert/ssImage/g.jpg'
 import ssImageSrc2 from './assert/ssImage/g1.png'
+import ssImageSrc2_1 from './assert/ssImage/g2.png'
 import ssImageSrc3 from './assert/ssImage/s1.jpg'
 import ssImageSrc4 from './assert/ssImage/s1.1.jpg'
 import ssImageSrc5 from './assert/ssImage/s1.2.jpg'
@@ -27,6 +28,7 @@ import video2 from './assert/video/2.mp4'
 import video3 from './assert/video/3.mp4'
 import video4 from './assert/video/4.mp4'
 import './achievement.less'
+import { useLocation } from 'react-router-dom';
 const style = {
     // background: '#fff',
     padding: '8px 0',
@@ -37,7 +39,8 @@ const dividerStyle={
 fontWeight:'bolder'
 }
 function Achievement() {
-
+    // const location = useLocation()
+    // console.log(location);
     return (
         <>
             <Divider orientation="left" style={dividerStyle}>市级以上竞赛成果</Divider>
@@ -58,6 +61,11 @@ function Achievement() {
                 <Col className="gutter-row" xs={24} md={6}>
                     <div style={style}>
                         <Image src={ssImageSrc2} ></Image>
+                    </div>
+                </Col>
+                <Col className="gutter-row" xs={24} md={6}>
+                    <div style={style}>
+                        <Image src={ssImageSrc2_1} ></Image>
                     </div>
                 </Col>
                 <Col className="gutter-row" xs={24} md={6}>
